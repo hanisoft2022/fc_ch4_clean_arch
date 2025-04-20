@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'data/memory/todo_data_notifier.dart';
 
-
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   static bool isForeground = true;
@@ -38,20 +37,22 @@ class AppState extends State<App> with Nav, WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return CustomThemeApp(
-      child: Builder(builder: (context) {
-        return TodoDataHolder(
-          notifier: notifier,
-          child: MaterialApp(
-            navigatorKey: App.navigatorKey,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            title: 'Image Finder',
-            theme: context.themeType.themeData,
-            home: const MainScreen(),
-          ),
-        );
-      }),
+      child: Builder(
+        builder: (context) {
+          return TodoDataHolder(
+            notifier: notifier,
+            child: MaterialApp(
+              navigatorKey: App.navigatorKey,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              title: 'Image Finder',
+              theme: context.themeType.themeData,
+              home: const MainScreen(),
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -67,6 +68,8 @@ class AppState extends State<App> with Nav, WidgetsBindingObserver {
         App.isForeground = false;
         break;
       case AppLifecycleState.detached:
+        break;
+      case AppLifecycleState.hidden:
         break;
     }
     super.didChangeAppLifecycleState(state);
